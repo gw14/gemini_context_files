@@ -1,0 +1,50 @@
+Since you are currently in **Phase 1, Week 3** for both **Golang** and **CKA**, and entering the **Functions** phase for **PowerShell**, I have drafted a high-performance schedule for the week of **January 25 – February 1, 2026**.
+
+This draft aligns with the **Traffic Light Mastery System** and the **Master Schedule**.
+
+---
+
+## 📅 Unified Daily Schedule (Jan 25 – Feb 1, 2026)
+
+### 🟢 Golang: Interfaces & Composition
+
+**Theme:** *Implicit Interfaces & Breaking OOP Habits*
+
+* **Jan 26 (Mon):** Define an interface `Speaker` with a `Speak()` method and implement it across two different structs.
+* **Jan 27 (Tue):** Use **Struct Embedding** to "inherit" fields from a base struct.
+* **Jan 28 (Wed):** Experiment with the **Empty Interface** `interface{}` and Type Assertions.
+* **Jan 29 (Thu):** Write a function that accepts an interface, demonstrating decoupling.
+* **Jan 30 (Fri):** Implement a custom `Stringer` interface to control how your struct prints.
+* **Jan 31 (Sat):** Interface Review: Refactor a previous lab to use interfaces instead of concrete types.
+* **Feb 01 (Sun):** **Integration Lab:** Build a basic pluggable logger.
+
+### 🔵 PowerShell: Functions & Logic
+
+**Theme:** *The Transition to Production-Grade Scripting*
+
+* **Jan 26 (Mon):** Define a basic function with a single parameter.
+* **Jan 27 (Tue):** Implement `[Parameter(Mandatory=$true)]` and type constraints.
+* **Jan 28 (Wed):** Add `process {}` blocks to a function to handle pipeline input.
+* **Jan 29 (Thu):** Practice returning objects from functions rather than text.
+* **Jan 30 (Fri):** Create a function with multiple parameter sets.
+* **Jan 31 (Sat):** Advanced Review: Convert a previous "Disk Space Cleaner" script into a reusable function.
+* **Feb 01 (Sun):** **Integration Lab:** Write a script that uses a function to validate a file path before processing.
+
+### ☸️ CKA: Configuration (ConfigMaps & Secrets)
+
+**Theme:** *Decoupling Configuration from Code*
+
+* **Jan 26 (Mon):** Create a **ConfigMap** imperatively from a literal and a file.
+* **Jan 27 (Tue):** Create a **Secret** imperatively and observe the base64 encoding.
+* **Jan 28 (Wed):** Inject a ConfigMap as individual **Environment Variables** in a Pod.
+* **Jan 29 (Thu):** Mount a Secret as a **Volume** in a Pod and read the "file" from within the container.
+* **Jan 30 (Fri):** Use `envFrom` to inject all keys from a ConfigMap at once.
+* **Jan 31 (Sat):** Practice updating a ConfigMap and observing if the Pod's volume updates.
+* **Feb 01 (Sun):** **Speed Drill:** Create a Pod that pulls its DB password from a Secret in under 2 minutes.
+
+---
+
+### 🧠 Strategic Performance Protocols
+
+* **The 2-Minute Rule:** If you feel resistance, your only goal is to type `package main` or `k get pods`.
+* **Never Miss Twice:** If Monday is a wash, Tuesday becomes a mandatory "Green" day.
