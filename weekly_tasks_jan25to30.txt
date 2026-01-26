@@ -10,7 +10,7 @@ This draft aligns with the **Traffic Light Mastery System** and the **Master Sch
 
 **Theme:** *Implicit Interfaces & Breaking OOP Habits*
 
-* **Jan 26 (Mon):** Define an interface `Speaker` with a `Speak()` method and implement it across two different structs.
+* **Jan 26 (Mon):** Define an interface `Speaker` with a `Speak()` method and implement it across two different structs. - Done
 * **Jan 27 (Tue):** Use **Struct Embedding** to "inherit" fields from a base struct.
 * **Jan 28 (Wed):** Experiment with the **Empty Interface** `interface{}` and Type Assertions.
 * **Jan 29 (Thu):** Write a function that accepts an interface, demonstrating decoupling.
