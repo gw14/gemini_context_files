@@ -11,7 +11,7 @@ This draft aligns with the **Traffic Light Mastery System** and the **Master Sch
 **Theme:** *Implicit Interfaces & Breaking OOP Habits*
 
 * **Jan 26 (Mon):** Define an interface `Speaker` with a `Speak()` method and implement it across two different structs. - Done
-* **Jan 27 (Tue):** Use **Struct Embedding** to "inherit" fields from a base struct.
+* **Jan 27 (Tue):** Use **Struct Embedding** to "inherit" fields from a base struct. - Done
 * **Jan 28 (Wed):** Experiment with the **Empty Interface** `interface{}` and Type Assertions.
 * **Jan 29 (Thu):** Write a function that accepts an interface, demonstrating decoupling.
 * **Jan 30 (Fri):** Implement a custom `Stringer` interface to control how your struct prints.
@@ -22,8 +22,8 @@ This draft aligns with the **Traffic Light Mastery System** and the **Master Sch
 
 **Theme:** *The Transition to Production-Grade Scripting*
 
-* **Jan 26 (Mon):** Define a basic function with a single parameter.
-* **Jan 27 (Tue):** Implement `[Parameter(Mandatory=$true)]` and type constraints.
+* **Jan 26 (Mon):** Define a basic function with a single parameter.  - DONE
+* **Jan 27 (Tue):** Implement `[Parameter(Mandatory=$true)]` and type constraints. - DONE
 * **Jan 28 (Wed):** Add `process {}` blocks to a function to handle pipeline input.
 * **Jan 29 (Thu):** Practice returning objects from functions rather than text.
 * **Jan 30 (Fri):** Create a function with multiple parameter sets.
@@ -34,8 +34,8 @@ This draft aligns with the **Traffic Light Mastery System** and the **Master Sch
 
 **Theme:** *Decoupling Configuration from Code*
 
-* **Jan 26 (Mon):** Create a **ConfigMap** imperatively from a literal and a file.
-* **Jan 27 (Tue):** Create a **Secret** imperatively and observe the base64 encoding.
+* **Jan 26 (Mon):** Create a **ConfigMap** imperatively from a literal and a file. - DONE
+* **Jan 27 (Tue):** Create a **Secret** imperatively and observe the base64 encoding. - DONE
 * **Jan 28 (Wed):** Inject a ConfigMap as individual **Environment Variables** in a Pod.
 * **Jan 29 (Thu):** Mount a Secret as a **Volume** in a Pod and read the "file" from within the container.
 * **Jan 30 (Fri):** Use `envFrom` to inject all keys from a ConfigMap at once.
