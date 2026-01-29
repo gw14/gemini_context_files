@@ -140,3 +140,88 @@ Look at the function you are building for today. If you were to add a second par
 ### Pro-Tip
 
 Use **Ctrl+Space** while inside your function's `param()` block or when calling the function in the terminal to trigger **IntelliSense**. It will show you the available parameter attributes and names you've defined.
+
+param(
+    [Parameter(Mandatory, ValueFromPipeline)]
+    [string[]]$ComputerName
+)
+
+The ValueFromPipeline argument indicates that the parameter accepts input from a pipeline object. Specify this argument if the function accepts the entire object, not just a property of the object.
+
+param(
+    [Parameter(Mandatory, ValueFromPipeline)]
+    [string[]]$ComputerName
+)
+
+The ValueFromPipelineByPropertyName argument indicates that the parameter accepts input from a property of a pipeline object.
+The object property must have the same name or alias as the parameter.
+
+
+Input processing methods
+The methods described in this section are referred to as the input processing methods. For functions, these three methods are represented by the begin, process, and end blocks of the function. PowerShell 7.3 adds a clean block process method.
+
+You aren't required to use any of these blocks in your functions. If you don't use a named block, then PowerShell puts the code in the end block of the function. However, if you use any of these named blocks, or define a dynamicparam block, you must put all code in a named block.
+
+The following example shows the outline of a function that contains a begin block for one-time preprocessing, a process block for multiple record processing, and an end block for one-time post-processing.
+
+Function Test-ScriptCmdlet
+{
+[CmdletBinding(SupportsShouldProcess=$true)]
+    param ($Parameter1)
+    begin{}
+    process{}
+    end{}
+    clean{}
+}
+
+process
+This block is used to provide record-by-record processing for the function. You can use a process block without defining the other blocks. The number of process block executions depends on how you use the function and what input the function receives.
+
+
+[pscustomobject] - a type accelerator for creating an object.
+before - creating an object was done with `New-Object` and `Add-Member` functions.
+
+Since PowerShell 3.0, casting a Hashtable to [pscustomobject] could create an object, with the key,value pairs
+as its properties.
+
+
+To refactor your function for immediate pipeline output, you should remove the array accumulation logic and simply place the `[PSCustomObject]` directly in the `process` block without a variable assignment or a `return` statement.
+
+In PowerShell, any object that is not captured by a variable is automatically sent to the "Success Output Stream" (the pipeline).
+
+### The Optimized Refactor
+
+Here is the "production-grade" way to handle this, which avoids the memory overhead of building an array:
+
+```powershell
+function Get-AppStatus {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$ProcessName
+    )
+    
+    process {
+        foreach ($proc in Get-Process -Name $ProcessName -ErrorAction SilentlyContinue) {
+            # Outputting directly to the pipeline immediately
+            [PSCustomObject]@{
+                Name = $proc.ProcessName
+                ID   = $proc.Id
+                Cpu  = $proc.CPU
+            }
+        }
+    }
+}
+
+```
+
+### Why this is the "Shell-Master" Way:
+
+* **Memory Efficiency:** Instead of waiting for the `end` block to return a massive array, this version "streams" data. If you pipe this to another command, that next command can start working on the first object while your function is still finding the second one.
+* **No `return` Required:** In PowerShell functions, `return` actually exits the function entirely. By simply declaring the object, you keep the function alive to process the next item in the pipe.
+* **Real-Time Feedback:** If you run this against a long list of processes, you will see results appear on your screen one by one rather than waiting for a single "burst" at the end.
+
+
+
+
+

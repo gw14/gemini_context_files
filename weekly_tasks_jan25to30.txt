@@ -24,8 +24,8 @@ This draft aligns with the **Traffic Light Mastery System** and the **Master Sch
 
 * **Jan 26 (Mon):** Define a basic function with a single parameter.  - DONE
 * **Jan 27 (Tue):** Implement `[Parameter(Mandatory=$true)]` and type constraints. - DONE
-* **Jan 28 (Wed):** Add `process {}` blocks to a function to handle pipeline input.
-* **Jan 29 (Thu):** Practice returning objects from functions rather than text.
+* **Jan 28 (Wed):** Add `process {}` blocks to a function to handle pipeline input. - DONE
+* **Jan 29 (Thu):** Practice returning objects from functions rather than text. - DONE
 * **Jan 30 (Fri):** Create a function with multiple parameter sets.
 * **Jan 31 (Sat):** Advanced Review: Convert a previous "Disk Space Cleaner" script into a reusable function.
 * **Feb 01 (Sun):** **Integration Lab:** Write a script that uses a function to validate a file path before processing.
