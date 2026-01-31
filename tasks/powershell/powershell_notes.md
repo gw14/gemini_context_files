@@ -215,11 +215,160 @@ function Get-AppStatus {
 
 ```
 
-### Why this is the "Shell-Master" Way:
+### **Declaring a Parameter Set**
 
-* **Memory Efficiency:** Instead of waiting for the `end` block to return a massive array, this version "streams" data. If you pipe this to another command, that next command can start working on the first object while your function is still finding the second one.
-* **No `return` Required:** In PowerShell functions, `return` actually exits the function entirely. By simply declaring the object, you keep the function alive to process the next item in the pipe.
-* **Real-Time Feedback:** If you run this against a long list of processes, you will see results appear on your screen one by one rather than waiting for a single "burst" at the end.
+**Parameter Sets** allow a function to have multiple "modes" of operation. For example, a function might fetch a user by `ID` **OR** by `Email`, but providing both would be logically invalid.
+
+#### **Key Rules**
+
+1. **Unique Parameters:** Each parameter set must have at least one unique parameter so PowerShell can distinguish between them.
+2. **Default Set:** Use `DefaultParameterSetName` in your `[CmdletBinding()]` to tell PowerShell which set to use if the input is ambiguous.
+3. **Mandatory Logic:** A parameter can be mandatory in one set but optional (or non-existent) in another.
+
+#### **Code Example**
+
+Below is an example for a function that manages a server, allowing the user to either restart it or just query its status.
+
+```powershell
+function Invoke-ServerManagement {
+    [CmdletBinding(DefaultParameterSetName = 'QuerySet')]
+    param (
+        # This parameter is common to BOTH sets
+        [Parameter(Mandatory = $true)]
+        [string]$ComputerName,
+
+        # This parameter defines the 'QuerySet'
+        [Parameter(Mandatory = $true, ParameterSetName = 'QuerySet')]
+        [switch]$StatusOnly,
+
+        # This parameter defines the 'RestartSet'
+        [Parameter(Mandatory = $true, ParameterSetName = 'RestartSet')]
+        [switch]$Restart,
+
+        [Parameter(ParameterSetName = 'RestartSet')]
+        [int]$DelayInSeconds = 30
+    )
+
+    # Use $PSCmdlet.ParameterSetName to determine which logic to run
+    switch ($PSCmdlet.ParameterSetName) {
+        'QuerySet' {
+            Write-Output "Checking status of $ComputerName..."
+        }
+        'RestartSet' {
+            Write-Output "Restarting $ComputerName after $DelayInSeconds seconds."
+        }
+    }
+}
+
+```
+
+To help you structure your `Get-KubeResource` function without giving away the full code, here are three progressive hints based on the **Architectural Foundation** requirements.
+
+### **Hint 1: The `param` Block Structure**
+
+To create mutually exclusive "modes," you must assign your unique parameters to specific sets. A parameter like `-Namespace` shouldn't be accessible when you are in "Label Mode."
+
+* **Set A (Namespace):** Mark the `$Namespace` parameter with `ParameterSetName = 'ByNamespace'`.
+* **Set B (Label):** Mark the `$LabelSelector` parameter with `ParameterSetName = 'ByLabel'`.
+* **The Bridge:** If you want a parameter like `-Context` to work in both modes, you don't need to specify a set name for it, or you can list it in both.
+
+### **Hint 2: Defining the Default**
+
+PowerShell needs to know what to do if a user just types `Get-KubeResource` without any flags. In your `[CmdletBinding()]`, use the `DefaultParameterSetName` attribute.
+
+* *Strategy:* If you want the function to default to showing all pods in the "default" namespace, set your default to the `ByNamespace` set.
+
+### **Hint 3: The "Logic Switch"**
+
+Once the user hits Enter, PowerShell automatically populates the automatic variable `$PSCmdlet.ParameterSetName` with the string name of the set that was triggered.
+
+* Inside your `process {}` block, use a `switch` statement or an `if/else` block that checks:
+* `if ($PSCmdlet.ParameterSetName -eq 'ByNamespace') { ... }`
+* `elseif ($PSCmdlet.ParameterSetName -eq 'ByLabel') { ... }`
+
+To account for the conflict in your **Jan 30** task, you use the `$PSCmdlet.ParameterSetName` variable to switch logic based on which mutually exclusive input the user provided.
+
+Here is how you structure that **logic switch** to handle the two different "modes" (Namespace vs. Label) for your `Get-KubePod` tool:
+
+```powershell
+process {
+    # The switch statement checks which 'ParameterSetName' was triggered by the user
+    switch ($PSCmdlet.ParameterSetName) {
+        
+        'ByNamespace' {
+            # Logic for when the user provides -Namespace
+            Write-Verbose "Operating in Namespace Mode."
+            kubectl get pods -n $Namespace
+        }
+
+        'ByLabel' {
+            # Logic for when the user provides -LabelSelector
+            # Note the use of -A (all namespaces) to differentiate the behavior
+            Write-Verbose "Operating in Global Label Mode."
+            kubectl get pods -A -l $LabelSelector
+        }
+
+        Default {
+            # Optional: Fallback if no specific set is matched
+            Write-Error "No valid parameter set detected."
+        }
+    }
+}
+
+```
+
+### **Why this solves the conflict:**
+
+* **Mutual Exclusion:** Because you defined `-Namespace` and `-LabelSelector` in different sets in your `param` block, PowerShell’s engine will throw an error automatically if a user tries to use both at the same time.
+* **Clean Logic:** Instead of using complex `if ($null -ne $Namespace)` checks, the `switch` statement uses the built-in metadata of the command to ensure you only run the code meant for that specific "mode".
+* **Architectural Standard:** This aligns with your **Phase 1** goal of moving beyond simple automation into professional "Toolmaking".
+
+Great job! You have correctly implemented the logic for the **Multiple Parameter Sets** task. You successfully used `[CmdletBinding]` to define a default set and correctly mapped the logic using the `$PSCmdlet.ParameterSetName` automatic variable.
+
+To move this from a working script to a **"Production-Grade"** tool as outlined in your Phase 1 goals, here are three small refinements to apply:
+
+### **1. Syntax Fix: The Missing Comma**
+
+In PowerShell, parameters in a `param()` block must be separated by a comma. Without it, the shell will throw a syntax error when you try to load the function.
+
+### **2. Architectural Alignment: Object Output**
+
+Your current function prints the `kubectl` text directly to the console. To align with your **Jan 29 (Thu)** task of "returning objects rather than text," you should ensure the output can be used by other PowerShell commands. Using the `-o json` or `-o wide` flags with `kubectl` is common, but even keeping the default is fine as long as you understand that the goal of a "Toolmaker" is to pass data down the pipeline.
+
+### **3. Strategic Protocol: Verbose Logging**
+
+Since you are in the **"Transition to Production-Grade Scripting"** theme, add a `Write-Verbose` statement inside each switch case. This allows you to run `Get-KubeResource -Namespace default -Verbose` and see exactly which logic block is being triggered.
+
+---
+
+### **Refined Version for your Review:**
+
+```powershell
+function Get-KubeResource {
+    [CmdletBinding(DefaultParameterSetName = "Namespace")]
+    param(
+        [Parameter(Mandatory=$true, ParameterSetName = "Namespace")]
+        [string]$Namespace, # Added missing comma here
+
+        [Parameter(Mandatory=$true, ParameterSetName = "Labelselect")]
+        [string]$Labelselector
+    )
+
+    process {
+        switch ($PSCmdlet.ParameterSetName) {
+            'Namespace' {
+                Write-Verbose "Fetching pods from namespace: $Namespace"
+                kubectl get pod --namespace $Namespace
+            }
+            'Labelselect' {
+                Write-Verbose "Fetching pods across all namespaces with label: $Labelselector"
+                kubectl get pod --all-namespaces -l $Labelselector
+            }
+        }
+    }
+}
+
+```
 
 
 
