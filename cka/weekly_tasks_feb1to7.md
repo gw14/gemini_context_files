@@ -7,8 +7,8 @@ I have moved your unfinished tasks from the previous week—specifically **Envir
 **Theme:** *Scheduling, Maintenance, and Secure Configuration*
 
 * **Feb 02 (Mon): Catch-up – Advanced Config Injection**
-* **Task:** Inject a ConfigMap as individual **Environment Variables** and use `envFrom` to inject all keys at once.
-* **Task:** Mount a Secret as a **Volume** in a Pod and read the "file" from within the container.
+* **Task:** Inject a ConfigMap as individual **Environment Variables** and use `envFrom` to inject all keys at once. - DONE
+* **Task:** Mount a Secret as a **Volume** in a Pod and read the "file" from within the container. - DONE
 
 
 * **Feb 03 (Tue): Catch-up – Dynamic Updates & Speed Drill**
