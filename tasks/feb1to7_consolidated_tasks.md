@@ -7,7 +7,7 @@ Here is your daily task list for **CKA**, **Golang**, and **PowerShell** for the
 
 
 * **Tuesday, Feb 03**
-* **CKA:** Dynamic Updates & Speed Drill—Mount a Secret as a Volume and verify real-time updates; then practice creating a Secret-pulling Pod in under 2 minutes.
+* **CKA:** Dynamic Updates & Speed Drill—Mount a Secret as a Volume and verify real-time updates; then practice creating a Secret-pulling Pod in under 2 minutes. - DONE
 * **Golang:** Integration Lab—Build a Pluggable Logger that writes to multiple destinations (console, file, etc.) using the `io.Writer` interface.
 * **PowerShell:** Robust Path Validation—Finalize a script that uses `[ValidateScript({Test-Path $_})]` to validate file paths before execution.
 
