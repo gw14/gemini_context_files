@@ -12,26 +12,26 @@ I have moved your unfinished tasks from the previous week—specifically **Envir
 
 
 * **Feb 03 (Tue): Catch-up – Dynamic Updates & Speed Drill**
-* **Task:** Update a ConfigMap and observe if/how the Pod's mounted volume updates in real-time.
-* **Speed Drill:** Create a Pod that pulls its DB password from a Secret in under 2 minutes.
+* **Task:** Update a ConfigMap and observe if/how the Pod's mounted volume updates in real-time. - DONE
+* **Speed Drill:** Create a Pod that pulls its DB password from a Secret in under 2 minutes. - DONE
 
 
 * **Feb 04 (Wed): Scheduling – Taints, Tolerations & Node Affinity**
-* **Goal:** Control where pods live. Ensure you can restrict pods to specific high-performance nodes.
-* **Lab:** Apply a taint to a node and observe a pod go into **Pending** state; then apply the correct toleration to fix it.
+* **Goal:** Control where pods live. Ensure you can restrict pods to specific high-performance nodes. - DONE
+* **Lab:** Apply a taint to a node and observe a pod go into **Pending** state; then apply the correct toleration to fix it. - DONE
 
 
 * **Feb 05 (Thu): Cluster Maintenance – Upgrades**
-* **Goal:** Master the `kubeadm` upgrade workflow: Upgrade `kubeadm` -> `kubeadm upgrade plan` -> upgrade `kubelet`/`kubectl`.
+* **Goal:** Master the `kubeadm` upgrade workflow: Upgrade `kubeadm` -> `kubeadm upgrade plan` -> upgrade `kubelet`/`kubectl`. - DONE
 
 
 * **Feb 06 (Fri): High-Stakes Task – ETCD Backup & Restore**
-* **Goal:** Use `etcdctl` to snapshot the keyspace and restore it to a new directory.
-* **Criticality:** This is a vital high-stakes exam task.
+* **Goal:** Use `etcdctl` to snapshot the keyspace and restore it to a new directory. - DONE
+* **Criticality:** This is a vital high-stakes exam task. -DONE
 
 
 * **Feb 07 (Sat): Weekend Integration – Drain & Cordon**
-* **Task:** Practice safely removing all workloads from a node before "maintenance" and then return it to service.
+* **Task:** Practice safely removing all workloads from a node before "maintenance" and then return it to service. - DONE
 
 
 * **Feb 08 (Sun): Weekend Speed Drill – The Multi-Tier Challenge**
