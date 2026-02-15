@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: web-pod
+  name: web-pod
+spec:
+  containers:
+  - image: nginx
+    name: web-pod
+    resources: {}
+    volumeMounts:
+    - name: db-pass
+      mountPath: /etc/secret-volume
+      readOnly: true
+  volumes:
+    - name: db-pass
+      secret:
+        secretName: db-pass  
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
