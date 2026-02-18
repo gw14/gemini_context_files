@@ -1,53 +1,47 @@
-To align with your **Phase 1: Foundations & Speed** schedule and your May 1st goal, I have refined your next three weeks into a high-intensity "Tactical Sprint." This plan shifts from basic imperative commands to the "Heavy Lifter" topics (Networking and Storage) while maintaining your **Traffic Light Mastery System**.
+Your 3-month CKA roadmap is divided into four distinct phases designed to lead you to a passing score by your **May 1st, 2026** deadline. Here is the plan as structured in your documentation:
 
-## 📅 3-Week CKA Tactical Sprint (Jan 26 – Feb 15)
+### 📅 Phase 1: Foundations & Speed (Jan 10 – Feb 7)
 
-The 2026 CKA curriculum places the highest weight on **Troubleshooting (30%)** and **Cluster Architecture (25%)**, followed by **Networking (20%)**.
+*Focus: Mastering the imperative mindset and cluster architecture.*
 
----
+* **Week 1:** Cluster Architecture & Imperative Mindset (Aliases, dry-runs).
+* **Week 2:** Workloads (Deployments, Rolling Updates, Scaling).
+* **Week 3:** Configuration (ConfigMaps, Secrets, EnvVars).
+* **Week 4:** Scheduling (Taints, Tolerations, Affinity).
 
-### 🟢 Week 3 (Jan 26 – Feb 1): Configuration & Workloads
+### 📅 Phase 2: The Heavy Lifters (Feb 8 – Mar 7)
 
-*Focus: Decoupling configuration and mastering imperative speed.*
+*Focus: Networking, Services, and Storage.*
 
-* **Mon–Tue:** Practice creating **ConfigMaps** and **Secrets** from literal values and files. Compare the security of Secrets (base64) vs. ConfigMaps.
-* **Wed–Thu:** Inject configurations into Pods via `env`, `envFrom`, and **Volumes**. Verify changes in real-time by mounting a Secret as a volume and reading the file inside the container.
-* **Fri:** Perform **Rolling Updates** and **Rollbacks** on Deployments. Use `kubectl rollout history` and `--revision` to manage state.
-* **Weekend Integration:** **Speed Drill.** Build a multi-tier app where the web pod pulls its DB password from a Secret and its UI theme from a ConfigMap in under 5 minutes.
+* **Week 5 (Current):** Services & Networking (ClusterIP, NodePort, DNS).
+* **Week 6:** Ingress & Network Policies (Security).
+* **Week 7:** Storage (PV, PVC, StorageClass).
+* **Week 8:** Integration Week (Multi-tier app deployment lab).
 
----
+### 📅 Phase 3: Management & Security (Mar 8 – Mar 31)
 
-### 🔵 Week 4 (Feb 2 – Feb 8): Scheduling & Cluster Maintenance
+*Focus: Cluster maintenance and access control.*
 
-*Focus: Controlling where pods live and keeping the cluster alive.*
+* **Week 9:** Maintenance (Upgrades, Drain/Uncordon).
+* **Week 10:** RBAC & Security (Users, Roles, ServiceAccounts).
+* **Week 11:** ETCD Backup & Restore.
+* **Week 12:** **TEST 1: Full Simulation (Mock Exam)**.
 
-* **Mon–Tue:** Master **Taints & Tolerations** and **Node Affinity**. Ensure you can restrict pods to specific high-performance nodes.
-* **Wed–Thu:** **Cluster Upgrades.** Practice the `kubeadm` upgrade workflow: Upgrade `kubeadm` -> `kubeadm upgrade plan` -> upgrade `kubelet`/`kubectl`.
-* **Fri:** **ETCD Backup & Restore.** Use `etcdctl` to snapshot the keyspace and restore it to a new directory. This is a critical high-stakes exam task.
-* **Weekend Integration:** Practice **Drain & Cordon**. Safely remove all workloads from a node before "maintenance" and then return it to service.
+### 📅 Phase 4: Troubleshooting & Exam Deployment (Apr 1 – May 1)
 
----
+*Focus: Gap analysis and final exam attempts.*
 
-### 🟠 Week 5 (Feb 9 – Feb 15): Networking & Services
+* **Week 13:** Advanced Troubleshooting (Logs, Certificate repairs).
+* **Week 14:** Gap Analysis (Fixing "Red" topics from Mock).
+* **🎯 Apr 15:** **TEST 2: The Real Exam (Attempt 1)**.
+* **Week 15-16:** The "Redo" Buffer (Retake prep if needed).
 
-*Focus: Connectivity, Load Balancing, and Isolation.*
+### 🛠️ Strategic Milestones
 
-* **Mon–Tue:** Understand **Service Types**. Distinguish when to use `ClusterIP` (internal), `NodePort` (external access), and `LoadBalancer`.
-* **Wed–Thu:** **Network Policies.** This is the "Zero-Trust" model. Practice creating policies that block all traffic except for specific ports from labeled pods.
-* **Fri:** **CoreDNS & Ingress.** Troubleshoot DNS resolution using `nslookup` inside a pod. Configure an **Ingress Resource** to route traffic to different services based on URL paths.
-* **Weekend Integration:** **The Connectivity Challenge.** Deploy two apps in different namespaces and write a NetworkPolicy that allows only the frontend pod to "talk" to the backend pod.
+Your progress is tracked against these core exam weightings:
 
----
-
-## 🛠️ Performance Protocols
-
-* **The 2-Minute Rule:** If you feel resistance, just run `alias k=kubectl` and `k get nodes`. Once you see the cluster, the friction is gone.
-* **Friction Audit:** If you struggle with YAML formatting, stop and bookmark the **Kubernetes Documentation "Cheat Sheet"**. Use the docs strategically during your labs.
-* **Never Miss Twice:** If you skip a Monday lab, Tuesday is mandatory. Maintaining momentum is more important than perfect intensity.
-
-### Mentor Challenge
-
-Can you explain why a Pod in a **Pending** state might be related to a **Taint** on a node, and how you would investigate this using only one `kubectl` command?
-
-[CKA Prep: Services and Networking Walkthrough](https://www.youtube.com/watch?v=rP-W3Tv3plw)
-This video provides practical, hands-on walkthroughs for networking and service tasks that are essential for the CKA exam.
+* **Troubleshooting:** 30%
+* **Cluster Architecture & Config:** 25%
+* **Services & Networking:** 20%
+* **Workloads & Scheduling:** 15%
+* **Storage:** 10%
