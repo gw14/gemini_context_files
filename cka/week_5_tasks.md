@@ -46,3 +46,36 @@ Since today is Wednesday, February 18th, 2026, we have a condensed window to mas
 ---
 
 **Would you like to start with a practice scenario on "Selector Mismatches," or shall we jump straight into the YAML for a NodePort service?**
+
+That YAML is **perfect**. You’ve successfully corrected the `targetPort` to **80** (matching the Nginx container) and manually assigned the `nodePort` to **30080**.
+
+### 🔍 Validation Check
+
+By setting `targetPort: 80`, the Service now knows exactly where to send traffic once it hits the Node.
+
+* **External Request:** Hits any Node IP on port **30080**.
+* **Service:** Routes that to the ClusterIP on port **80**.
+* **Pod:** Receives the traffic on its container port **80**.
+
+---
+
+### 🏋️ Next Task: Run 4 — DNS Verification
+
+As per your **Week 5 Tactical Tasklist**, you need to verify that your cluster's internal DNS (CoreDNS) can resolve this service name. In the CKA exam, verifying connectivity is just as important as creating the resource.
+
+**Your Goal:** Launch a temporary `busybox` pod and use `nslookup` to find the IP of your `app-v1-np` service.
+
+**Try this one-liner to verify:**
+
+```bash
+k run dns-test --image=busybox -i --rm --restart=Never -- nslookup app-v1-np
+
+```
+
+### 📚 Architect's Note on DNS
+
+In Kubernetes, the standard DNS format for a service is:
+`<service-name>.<namespace>.svc.cluster.local`.
+Since you are in the `default` namespace, simply looking up `app-v1-np` should work.
+
+**Does the output show the correct ClusterIP (10.107.80.87), or did it fail to resolve?**
